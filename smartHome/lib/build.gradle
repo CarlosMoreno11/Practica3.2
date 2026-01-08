@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+    // Plugin oficial de JavaFX actualizado
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'com.smarthome'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// Configuración de JavaFX para tu entorno JDK 21
+javafx {
+    version = "21"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+application {
+    mainClass = 'smartHome.MainApp' 
+}
+
+dependencies {
+    // Librerías de JUnit 5 para pruebas unitarias de funciones (CE 3e)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+
+    // Librerías de TestFX para pruebas de interacción (CE 3e) [cite: 35]
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Configuración necesaria para crear el JAR distribuible (CE 3g) [cite: 8]
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'MainApp'
+        )
+    }
+}
